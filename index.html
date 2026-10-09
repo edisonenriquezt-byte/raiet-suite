@@ -6,29 +6,28 @@
   <title>Raiet Suite DEV</title>
   
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0d1b2a">
+  <meta name="theme-color" content="#ffffff">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Raiet Suite DEV">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
-      --bg: #0b1728;
-      --card: #13243d;
-      --card-inner: #0f1c30;
-      --card-border: #1e3a63;
-      --card-border-subtle: #193153;
-      --text: #f0f4f8;
-      --text-muted: #8ea3bf;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-inner: #f1f5f9;
+      --card-border: #e2e8f0;
+      --card-border-subtle: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
-      --accent: #38bdf8;
-      --success: #10b981;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --matte-steel: #94a3b8;
+      --success: #059669;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --matte-steel: #475569;
     }
     * { 
       box-sizing: border-box; 
@@ -50,110 +49,111 @@
 
     header.brand-header {
       padding: 12px 14px; margin-bottom: 12px;
-      background: linear-gradient(180deg, #162c4a 0%, #102036 100%);
+      background: #ffffff;
       border: 1px solid var(--card-border); border-radius: 14px;
       display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
     .brand-left { display: flex; align-items: center; gap: 12px; }
     .brand-avatar {
-      width: 42px; height: 38px; border-radius: 10px;
-      background: linear-gradient(135deg, #0284c7 0%, #1e40af 100%);
+      width: 44px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       display: flex; align-items: center; justify-content: center;
       font-weight: 900; font-size: 0.82rem; color: #fff; letter-spacing: 0.05em;
-      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.5);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
     }
     .brand-title-box { display: flex; flex-direction: column; }
-    .brand-name { font-size: 1.02rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; }
-    .brand-tag { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .brand-name { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #1e293b; }
+    .brand-tag { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: #2563eb; font-weight: 700; }
     .system-status { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 20px; }
-    .status-online { color: var(--success); background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); }
-    .status-offline { color: var(--warning); background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-online { color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; }
+    .status-offline { color: #b45309; background: #fffbeb; border: 1px solid #fde68a; }
     .status-dot { width: 7px; height: 7px; border-radius: 50%; }
-    .dot-online { background: var(--success); box-shadow: 0 0 8px var(--success); }
-    .dot-offline { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+    .dot-online { background: #10b981; }
+    .dot-offline { background: #f59e0b; }
 
     .alerts-card {
-      background: #152238; border: 1px solid rgba(245, 158, 11, 0.45);
+      background: #fffbeb; border: 1px solid #fde68a;
       border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; display: none;
     }
     .alerts-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .alerts-title { font-size: 0.76rem; font-weight: 800; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.05em; }
-    .alerts-badge { background: #f59e0b; color: #000; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
+    .alerts-title { font-size: 0.76rem; font-weight: 800; color: #b45309; text-transform: uppercase; letter-spacing: 0.05em; }
+    .alerts-badge { background: #f59e0b; color: #fff; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
     .alerts-list { display: flex; flex-direction: column; gap: 6px; }
-    .alert-pill { background: #0c182a; border: 1px solid var(--card-border); padding: 7px 10px; border-radius: 7px; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; }
+    .alert-pill { background: #ffffff; border: 1px solid #fef3c7; padding: 7px 10px; border-radius: 7px; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; color: #1e293b; }
 
     nav.bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; 
       height: calc(65px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom);
-      background: #091322; border-top: 1px solid var(--card-border);
+      background: #ffffff; border-top: 1px solid var(--card-border);
       display: flex; justify-content: space-around; align-items: center; z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
     }
     .nav-btn {
       background: none; border: none; color: var(--text-muted);
       display: flex; flex-direction: column; align-items: center; gap: 4px;
       font-size: 0.74rem; cursor: pointer; flex: 1; padding: 8px 0;
     }
-    .nav-btn.active { color: #fff; font-weight: 700; }
-    .nav-btn.active svg { fill: var(--accent); }
+    .nav-btn.active { color: var(--primary); font-weight: 700; }
+    .nav-btn.active svg { fill: var(--primary); }
     .nav-btn svg { width: 22px; height: 22px; fill: var(--text-muted); }
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+    .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
     .form-group { margin-bottom: 12px; }
-    label { display: block; font-size: 0.7rem; color: var(--accent); margin-bottom: 4px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em; }
+    label { display: block; font-size: 0.7rem; color: #334155; margin-bottom: 4px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em; }
     input, select, textarea {
       width: 100%; padding: 10px 12px; border-radius: 8px;
-      background: var(--card-inner); border: 1px solid var(--card-border);
-      color: #fff; font-size: 0.95rem; outline: none;
+      background: #ffffff; border: 1px solid var(--card-border-subtle);
+      color: #0f172a; font-size: 0.95rem; outline: none;
     }
-    input[type="file"] { padding: 6px; font-size: 0.8rem; color: var(--matte-steel); }
+    input[type="file"] { padding: 6px; font-size: 0.8rem; background: #f8fafc; color: var(--matte-steel); }
     textarea { resize: vertical; min-height: 55px; }
-    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 
     .btn { width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
     .btn-primary { background: var(--primary); color: #fff; }
     .btn-primary:active { background: var(--primary-hover); }
-    .btn-secondary { background: #1a2f50; color: #e2e8f0; font-size: 0.8rem; padding: 6px 10px; width: auto; border: 1px solid var(--card-border); }
+    .btn-secondary { background: #f1f5f9; color: #334155; font-size: 0.8rem; padding: 6px 10px; width: auto; border: 1px solid var(--card-border); }
     .btn-success { background: #059669; color: #fff; font-size: 0.8rem; padding: 6px 12px; width: auto; }
-    .btn-danger { background: rgba(239, 68, 68, 0.15); color: #fca5a5; font-size: 0.8rem; padding: 6px 10px; width: auto; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .btn-danger { background: #fee2e2; color: #b91c1c; font-size: 0.8rem; padding: 6px 10px; width: auto; border: 1px solid #fca5a5; }
 
     .search-filter-box {
-      background: var(--card-inner); padding: 12px; border-radius: 10px;
+      background: var(--card); padding: 12px; border-radius: 10px;
       margin-bottom: 14px; border: 1px solid var(--card-border);
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.8rem; color: var(--matte-steel); }
     .filter-row input[type="month"] { width: auto; padding: 4px 8px; font-size: 0.8rem; }
 
-    .acc-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
-    .acc-header { padding: 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); }
-    .acc-title { font-weight: 700; font-size: 1rem; color: #fff; }
+    .acc-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+    .acc-header { padding: 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #ffffff; }
+    .acc-title { font-weight: 700; font-size: 1rem; color: #0f172a; }
     .acc-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
-    .acc-body { padding: 14px; border-top: 1px solid var(--card-border); display: none; background: #0c182b; }
+    .acc-body { padding: 14px; border-top: 1px solid var(--card-border); display: none; background: #f8fafc; }
     .acc-body.open { display: block; }
 
     .badge { font-size: 0.68rem; padding: 3px 8px; border-radius: 999px; font-weight: 700; text-transform: uppercase; }
-    .badge-pending { background: rgba(245, 158, 11, 0.18); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
-    .badge-done { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-pending { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .badge-done { background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
 
     .saldo-box {
-      background: #091322; border: 1px solid var(--card-border-subtle);
+      background: #ffffff; border: 1px solid var(--card-border);
       border-radius: 8px; padding: 10px 12px; margin: 10px 0;
       display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 8px; text-align: center;
     }
-    .saldo-box div span { display: block; font-size: 0.64rem; color: var(--accent); text-transform: uppercase; font-weight: 700; }
-    .saldo-box div strong { font-size: 0.95rem; }
-    .saldo-pendiente { color: #f87171; }
-    .saldo-cero { color: var(--success); }
+    .saldo-box div span { display: block; font-size: 0.64rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+    .saldo-box div strong { font-size: 0.95rem; color: #0f172a; }
+    .saldo-pendiente { color: #dc2626 !important; }
+    .saldo-cero { color: var(--success) !important; }
 
     .ledger-section { margin-top: 12px; border-top: 1px dashed var(--card-border); padding-top: 10px; }
-    .ledger-title { font-size: 0.8rem; font-weight: 700; color: #e2e8f0; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+    .ledger-title { font-size: 0.8rem; font-weight: 700; color: #334155; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
     .ledger-item {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 10px; background: #101f35; border: 1px solid var(--card-border-subtle);
+      padding: 8px 10px; background: #ffffff; border: 1px solid var(--card-border);
       border-radius: 6px; margin-bottom: 6px; font-size: 0.8rem;
     }
     .ledger-item .det { display: flex; flex-direction: column; gap: 4px; }
@@ -166,9 +166,10 @@
       cursor: pointer; border: none; font-weight: 600; width: fit-content;
     }
 
-    .modal { position: fixed; inset: 0; background: rgba(5, 12, 22, 0.88); display: none; justify-content: center; align-items: center; z-index: 200; padding: 16px; }
+    .modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); display: none; justify-content: center; align-items: center; z-index: 200; padding: 16px; }
     .modal.active { display: flex; }
-    .modal-box { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; max-width: 440px; width: 100%; padding: 18px; max-height: 90vh; overflow-y: auto; }
+    .modal-box { background: #ffffff; border: 1px solid var(--card-border); border-radius: 12px; max-width: 440px; width: 100%; padding: 18px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+    .modal-box h3 { color: #0f172a; margin-bottom: 8px; }
     .img-preview-full { max-width: 100%; max-height: 70vh; border-radius: 8px; display: block; margin: 0 auto; object-fit: contain; }
   </style>
 </head>
@@ -180,7 +181,7 @@
         <div class="brand-avatar">DEV</div>
         <div class="brand-title-box">
           <span class="brand-name">RAIET SUITE DEV</span>
-          <span class="brand-tag" id="view-desc">Laboratorio • Agenda</span>
+          <span class="brand-tag" id="view-desc">Panel DEV • Agenda</span>
         </div>
       </div>
       <div id="conn-badge" class="system-status status-online">
@@ -189,7 +190,7 @@
       </div>
     </header>
 
-    <!-- PANEL DE ALERTAS -->
+    <!-- PANEL DE ALERTAS A 48-72 HORAS -->
     <div id="panel-alertas" class="alerts-card">
       <div class="alerts-header">
         <span class="alerts-title">🔔 Vencimientos y Citas (Próximas 72h)</span>
@@ -222,7 +223,7 @@
         <div class="form-group"><label>Concepto / Caso Inicial</label><input type="text" id="cobro-concepto" placeholder="Ej. Juicio, Asesoría..."></div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
           <div class="form-group"><label>Monto Total ($)</label><input type="number" step="0.01" id="cobro-total" placeholder="100.00"></div>
-          <div class="form-group"><label>Fecha de Vencimiento</label><input type="date" id="cobro-fecha"></div>
+          <div class="form-group"><label>Fecha Vencimiento</label><input type="date" id="cobro-fecha"></div>
         </div>
         <div class="form-group"><label>Factura / Comprobante Inicial (Foto)</label><input type="file" id="cobro-foto" accept="image/*"></div>
         <button class="btn btn-primary" onclick="guardarVenta()">+ Abrir Cuenta y Desplegar Deuda</button>
@@ -243,7 +244,7 @@
           <div class="form-group"><label>Monto Inicial ($)</label><input type="number" step="0.01" id="pago-monto" placeholder="50.00"></div>
           <div class="form-group"><label>Fecha Vencimiento</label><input type="date" id="pago-fecha"></div>
         </div>
-        <div class="form-group"><label>Factura / Comprobante (Foto)</label><input type="file" id="pago-foto" accept="image/*"></div>
+        <div class="form-group"><label>Factura / Comprobante Inicial (Foto)</label><input type="file" id="pago-foto" accept="image/*"></div>
         <button class="btn btn-primary" onclick="guardarCuentaPorPagar()">+ Registrar Deuda Inicial</button>
       </div>
       <div class="search-filter-box">
@@ -257,7 +258,7 @@
   <!-- MODAL EDITAR AGENDA -->
   <div id="modal-editar-agenda" class="modal">
     <div class="modal-box">
-      <h3 style="margin-bottom: 8px; color: #fff;">Editar Cita</h3>
+      <h3>Editar Cita</h3>
       <input type="hidden" id="edit-agenda-id">
       <div class="form-group"><label>Cita / Evento</label><input type="text" id="edit-agenda-titulo"></div>
       <div class="form-group"><label>Detalle / Nota</label><textarea id="edit-agenda-detalle"></textarea></div>
@@ -273,7 +274,7 @@
   <!-- MODAL ABONO (COBROS) -->
   <div id="modal-abono" class="modal">
     <div class="modal-box">
-      <h3 style="margin-bottom: 8px; color: #fff;">Registrar Abono</h3>
+      <h3>Registrar Abono</h3>
       <p id="modal-cliente-nombre" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;"></p>
       <input type="hidden" id="modal-venta-id">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
@@ -293,10 +294,10 @@
   <!-- MODAL CARGO (COBROS) -->
   <div id="modal-cargo" class="modal">
     <div class="modal-box">
-      <h3 style="margin-bottom: 8px; color: #fff;">Sumar Deuda / Factura Adicional</h3>
+      <h3>Sumar Deuda / Factura Adicional</h3>
       <p id="modal-cargo-cliente" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;"></p>
       <input type="hidden" id="modal-cargo-id">
-      <div class="form-group"><label>Detalle / Concepto</label><input type="text" id="cargo-concepto" placeholder="Ej. Factura 001-020, Trámite extra..."></div>
+      <div class="form-group"><label>Detalle / Concepto</label><input type="text" id="cargo-concepto" placeholder="Ej. Factura 001-020, Diligencia..."></div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <div class="form-group"><label>Monto ($)</label><input type="number" step="0.01" id="cargo-monto"></div>
         <div class="form-group"><label>Fecha Vencimiento</label><input type="date" id="cargo-fecha"></div>
@@ -312,14 +313,14 @@
   <!-- MODAL PAGO CUOTA (POR PAGAR) -->
   <div id="modal-pago-cuota" class="modal">
     <div class="modal-box">
-      <h3 style="margin-bottom: 8px; color: #fff;">Registrar Pago Realizado</h3>
+      <h3>Registrar Pago Realizado</h3>
       <p id="modal-pago-nombre" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;"></p>
       <input type="hidden" id="modal-pago-id">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <div class="form-group"><label>Monto Pagado ($)</label><input type="number" step="0.01" id="cuota-monto"></div>
         <div class="form-group"><label>Fecha de Pago</label><input type="date" id="cuota-fecha"></div>
       </div>
-      <div class="form-group"><label>Forma de Pago</label><input type="text" id="cuota-tipo" placeholder="Ej. Transferencia, Cheque"></div>
+      <div class="form-group"><label>Forma de Pago</label><input type="text" id="cuota-tipo" placeholder="Ej. Transferencia, Débito"></div>
       <div class="form-group"><label>Notas (Opcional)</label><textarea id="cuota-nota"></textarea></div>
       <div class="form-group"><label>Comprobante de Pago (Foto)</label><input type="file" id="cuota-foto" accept="image/*"></div>
       <div style="display: flex; gap: 8px; margin-top: 14px;">
@@ -332,7 +333,7 @@
   <!-- MODAL CARGO PAGAR (POR PAGAR) -->
   <div id="modal-cargo-pagar" class="modal">
     <div class="modal-box">
-      <h3 style="margin-bottom: 8px; color: #fff;">Sumar Deuda / Factura Saliente</h3>
+      <h3>Sumar Deuda / Factura Recibida</h3>
       <p id="modal-cargo-pagar-nombre" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;"></p>
       <input type="hidden" id="modal-cargo-pagar-id">
       <div class="form-group"><label>Concepto</label><input type="text" id="cargo-pagar-concepto" placeholder="Ej. Factura insumos #492..."></div>
@@ -350,8 +351,8 @@
 
   <!-- VISOR DE COMPROBANTES / FACTURAS -->
   <div id="modal-visor" class="modal" onclick="cerrarModal('modal-visor')">
-    <div class="modal-box" style="text-align: center; background: rgba(11, 23, 40, 0.96);" onclick="event.stopPropagation()">
-      <h4 style="margin-bottom: 10px; color: #fff;">Documento / Factura</h4>
+    <div class="modal-box" style="text-align: center;" onclick="event.stopPropagation()">
+      <h4 style="margin-bottom: 10px; color: #0f172a;">Documento / Factura</h4>
       <img id="img-ampliada" class="img-preview-full" src="" alt="Comprobante">
       <button class="btn btn-secondary" style="margin-top: 14px; width: 100%;" onclick="cerrarModal('modal-visor')">Cerrar</button>
     </div>
@@ -365,8 +366,11 @@
   </nav>
 
   <script>
+    // Limpieza de Service Worker para que en desarrollo nunca sirva archivos viejos de la memoria
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(function(err) {});
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var reg of regs) { reg.unregister(); }
+      });
     }
 
     const SUPABASE_URL = 'https://fwkdtcecdwxezzkphxiv.supabase.co';
@@ -380,7 +384,6 @@
     var cobrosAbiertos = [];
     var pagosAbiertos = [];
     
-    // Almacenamiento local con prefijo propio para raiet-dev
     var cacheAgenda = JSON.parse(localStorage.getItem('raiet_dev_agenda') || '[]');
     var cacheCobros = JSON.parse(localStorage.getItem('raiet_dev_cobros') || '[]');
     var cachePagos = JSON.parse(localStorage.getItem('raiet_dev_pagos') || '[]');
@@ -396,7 +399,7 @@
       } else {
         badge.className = 'system-status status-offline';
         dot.className = 'status-dot dot-offline';
-        txt.innerText = 'OFFLINE LOCAL';
+        txt.innerText = 'OFFLINE';
       }
     }
     window.addEventListener('online', checkConexion);
@@ -408,7 +411,7 @@
         localStorage.setItem('raiet_dev_cobros', JSON.stringify(cacheCobros));
         localStorage.setItem('raiet_dev_pagos', JSON.stringify(cachePagos));
       } catch (e) {
-        console.warn('Memoria local llena:', e);
+        console.warn('Memoria llena:', e);
       }
       actualizarPanelAlertas();
     }
@@ -445,9 +448,9 @@
       if (target) target.classList.add('active');
       if (btn) btn.classList.add('active');
       var desc = document.getElementById('view-desc');
-      if (tab === 'agenda') desc.innerText = 'Laboratorio • Agenda';
-      else if (tab === 'cobros') desc.innerText = 'Laboratorio • Cobros';
-      else desc.innerText = 'Laboratorio • Por Pagar';
+      if (tab === 'agenda') desc.innerText = 'Panel DEV • Agenda';
+      else if (tab === 'cobros') desc.innerText = 'Panel DEV • Cobros';
+      else desc.innerText = 'Panel DEV • Por Pagar';
     }
 
     function procesarArchivoImagen(inputElement, callback) {
@@ -486,7 +489,7 @@
           if (fechaCita <= limite72h && fechaCita >= hoyStr) {
             var hora = new Date(c.fecha_evento).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             var prefijo = (fechaCita === hoyStr) ? '📅 Cita hoy (' + hora + '): ' : '📅 Cita en 48-72h (' + fechaCita + ' ' + hora + '): ';
-            alertas.push({ texto: prefijo + '<b>' + c.titulo + '</b>', color: '#38bdf8' });
+            alertas.push({ texto: prefijo + '<b>' + c.titulo + '</b>', color: '#2563eb' });
           }
         }
       });
@@ -503,15 +506,15 @@
           if (cargoVencePronto) {
             var tagVenc = '';
             if (cargoVencePronto.fecha < hoyStr) {
-              tagVenc = '⚠️ <span style="color:#ef4444; font-weight:800;">Vencido (' + cargoVencePronto.fecha + '):</span> ';
+              tagVenc = '⚠️ <span style="color:#dc2626; font-weight:800;">Vencido (' + cargoVencePronto.fecha + '):</span> ';
             } else if (cargoVencePronto.fecha === hoyStr) {
-              tagVenc = '💵 <span style="color:#fbbf24; font-weight:800;">Vence hoy:</span> ';
+              tagVenc = '💵 <span style="color:#d97706; font-weight:800;">Vence hoy:</span> ';
             } else {
-              tagVenc = '⏳ <span style="color:#38bdf8; font-weight:700;">Vence en 48-72h (' + cargoVencePronto.fecha + '):</span> ';
+              tagVenc = '⏳ <span style="color:#2563eb; font-weight:700;">Vence en 48-72h (' + cargoVencePronto.fecha + '):</span> ';
             }
             alertas.push({
               texto: tagVenc + 'Cobro a <b>' + cli.nombre + '</b> ($' + saldo.toFixed(2) + ')',
-              color: cargoVencePronto.fecha < hoyStr ? '#ef4444' : '#38bdf8'
+              color: cargoVencePronto.fecha < hoyStr ? '#dc2626' : '#2563eb'
             });
           }
         }
@@ -529,15 +532,15 @@
           if (cargoVencePronto) {
             var tagVenc = '';
             if (cargoVencePronto.fecha < hoyStr) {
-              tagVenc = '⚠️ <span style="color:#ef4444; font-weight:800;">Pago atrasado (' + cargoVencePronto.fecha + '):</span> ';
+              tagVenc = '⚠️ <span style="color:#dc2626; font-weight:800;">Pago atrasado (' + cargoVencePronto.fecha + '):</span> ';
             } else if (cargoVencePronto.fecha === hoyStr) {
-              tagVenc = '⚠️ <span style="color:#f59e0b; font-weight:800;">Vence hoy:</span> ';
+              tagVenc = '⚠️ <span style="color:#d97706; font-weight:800;">Vence hoy:</span> ';
             } else {
-              tagVenc = '⏳ <span style="color:#f59e0b; font-weight:700;">Vence en 48-72h (' + cargoVencePronto.fecha + '):</span> ';
+              tagVenc = '⏳ <span style="color:#d97706; font-weight:700;">Vence en 48-72h (' + cargoVencePronto.fecha + '):</span> ';
             }
             alertas.push({
               texto: tagVenc + 'Pago a <b>' + p.nombre + '</b> ($' + saldo.toFixed(2) + ')',
-              color: '#f59e0b'
+              color: '#d97706'
             });
           }
         }
@@ -560,7 +563,7 @@
     }
 
     // ==========================================
-    // AGENDA (CREAR, EDITAR, BORRAR)
+    // AGENDA
     // ==========================================
     async function cargarAgenda() {
       dibujarAgenda();
@@ -705,10 +708,10 @@
         html += '<div class="card" style="margin-bottom: 10px;">' +
           '<div style="display:flex; justify-content:space-between; align-items:flex-start;">' +
             '<div><div style="font-weight:700; font-size:1rem; ' + (x.completada ? 'text-decoration: line-through; opacity: 0.6;' : '') + '">' + x.titulo + '</div>' +
-            '<div style="font-size: 0.8rem; color: var(--accent); margin-top: 4px;">📅 ' + new Date(x.fecha_evento).toLocaleString([], {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'}) + '</div></div>' +
+            '<div style="font-size: 0.8rem; color: #2563eb; margin-top: 4px;">📅 ' + new Date(x.fecha_evento).toLocaleString([], {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'}) + '</div></div>' +
             '<span class="badge ' + (x.completada ? 'badge-done' : 'badge-pending') + '">' + (x.completada ? 'Lista' : 'Pendiente') + '</span>' +
           '</div>' +
-          (x.detalle ? '<div style="font-size:0.8rem; color:#cbd5e1; background:var(--card-inner); padding:6px 8px; border-radius:6px; margin:8px 0;">📝 ' + x.detalle + '</div>' : '') +
+          (x.detalle ? '<div style="font-size:0.8rem; color:#334155; background:var(--card-inner); padding:6px 8px; border-radius:6px; margin:8px 0;">📝 ' + x.detalle + '</div>' : '') +
           (x.foto_url ? '<button class="thumb-btn" style="margin-top:6px;" onclick="abrirVisor(\'' + x.foto_url + '\')">📷 Ver Documento</button>' : '') +
           '<div style="display:flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">' +
             '<button class="btn btn-secondary" onclick="abrirModalEditarAgenda(\'' + x.id + '\')">✏️ Editar</button>' +
@@ -910,9 +913,9 @@
         return acum + Math.max(0, deuda - pagado);
       }, 0);
 
-      var html = '<div style="background:rgba(56, 189, 248, 0.1); border:1px solid rgba(56, 189, 248, 0.35); border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">' +
-        '<span style="font-size:0.75rem; color:var(--matte-steel); text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">TOTAL POR COBRAR:</span>' +
-        '<div style="font-size:1.35rem; font-weight:800; color:var(--accent); margin-top:2px;">$' + totalGeneralCobrar.toFixed(2) + '</div>' +
+      var html = '<div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">' +
+        '<span style="font-size:0.75rem; color:#1e40af; text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">TOTAL POR COBRAR:</span>' +
+        '<div style="font-size:1.35rem; font-weight:800; color:#2563eb; margin-top:2px;">$' + totalGeneralCobrar.toFixed(2) + '</div>' +
       '</div>';
 
       for (var i = 0; i < lista.length; i++) {
@@ -943,7 +946,7 @@
               '<div><span>Saldo</span><strong class="' + (liquidado ? 'saldo-cero' : 'saldo-pendiente') + '">$' + saldo.toFixed(2) + '</strong></div>' +
             '</div>' +
             '<div class="ledger-section">' +
-              '<div class="ledger-title"><span>Trámites / Facturas:</span><button class="btn btn-secondary" style="padding: 2px 8px; font-size:0.75rem;" onclick="abrirModalCargo(\'' + v.id + '\')">+ Cargo / Factura</button></div>';
+              '<div class="ledger-title"><span>Trámites / Facturas:</span><button class="btn btn-secondary" style="padding: 2px 8px; font-size:0.75rem;" onclick="abrirModalCargo(\'' + v.id + '\')">+ Factura / Cargo</button></div>';
 
         for (var cIdx = 0; cIdx < cargos.length; cIdx++) {
           var c = cargos[cIdx];
@@ -951,7 +954,7 @@
             '<div class="det"><b>' + c.concepto + '</b><span style="font-size:0.7rem; color:var(--text-muted);">Vence: ' + (c.fecha || '-') + '</span>' +
             (c.foto_url ? '<button class="thumb-btn" style="margin-top:3px;" onclick="abrirVisor(\'' + c.foto_url + '\')">🧾 Ver Factura</button>' : '') +
             '</div>' +
-            '<div class="actions"><b style="color:#fff;">$' + Number(c.monto).toFixed(2) + '</b><button class="btn-del-mini" title="Anular cargo" onclick="borrarCargo(\'' + c.id + '\')">✕</button></div>' +
+            '<div class="actions"><b style="color:#0f172a;">$' + Number(c.monto).toFixed(2) + '</b><button class="btn-del-mini" title="Anular cargo" onclick="borrarCargo(\'' + c.id + '\')">✕</button></div>' +
           '</div>';
         }
 
@@ -965,7 +968,7 @@
           html += '<div class="ledger-item">' +
             '<div class="det">' +
               '<span>• ' + (a.fecha || hoyStr) + ' (' + (a.tipo || 'Abono') + ')</span>' +
-              (a.nota ? '<span style="font-size:0.7rem; color:#94a3b8;">💬 ' + a.nota + '</span>' : '') +
+              (a.nota ? '<span style="font-size:0.7rem; color:#475569;">💬 ' + a.nota + '</span>' : '') +
               (a.foto_url ? '<button class="thumb-btn" onclick="abrirVisor(\'' + a.foto_url + '\')">🧾 Ver Recibo</button>' : '') +
             '</div>' +
             '<div class="actions"><b style="color:var(--success);">+$' + Number(a.monto).toFixed(2) + '</b><button class="btn-del-mini" title="Anular abono" onclick="borrarAbono(\'' + a.id + '\')">✕</button></div>' +
@@ -982,7 +985,7 @@
     }
 
     // ==========================================
-    // CUENTAS POR PAGAR (FACTURAS Y CUOTAS)
+    // CUENTAS POR PAGAR
     // ==========================================
     async function cargarPagos() {
       dibujarPagos();
@@ -1051,7 +1054,7 @@
 
     async function confirmarCargoPagar() {
       var id = document.getElementById('modal-cargo-pagar-id').value;
-      var concepto = document.getElementById('cargo-pagar-concepto').value.trim() || 'Factura / Obligación';
+      var concepto = document.getElementById('cargo-pagar-concepto').value.trim() || 'Factura Recibida';
       var monto = parseFloat(document.getElementById('cargo-pagar-monto').value);
       var fecha = document.getElementById('cargo-pagar-fecha').value || hoyStr;
       if (isNaN(monto) || monto <= 0) return alert('Ingresa un monto válido.');
@@ -1112,7 +1115,7 @@
           try {
             const { data } = await db.from('pagos_abonos').insert({ acreedor_id: id, monto: monto, fecha: fecha, tipo: tipo, nota: nota, foto_url: fotoBase64 }).select().single();
             if (data) { nuevoAbono.id = data.id; guardarMemoriaLocal(); }
-          } catch(e) { console.error('Error registrando pago cuota:', e); }
+          } catch(e) { console.error('Error registrando pago:', e); }
         }
       });
     }
@@ -1169,9 +1172,9 @@
         return acum + Math.max(0, deuda - pagado);
       }, 0);
 
-      var html = '<div style="background:rgba(239, 68, 68, 0.1); border:1px solid rgba(239, 68, 68, 0.35); border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">' +
-        '<span style="font-size:0.75rem; color:var(--matte-steel); text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">TOTAL POR PAGAR:</span>' +
-        '<div style="font-size:1.35rem; font-weight:800; color:#f87171; margin-top:2px;">$' + totalGeneralPagar.toFixed(2) + '</div>' +
+      var html = '<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">' +
+        '<span style="font-size:0.75rem; color:#991b1b; text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">TOTAL POR PAGAR:</span>' +
+        '<div style="font-size:1.35rem; font-weight:800; color:#dc2626; margin-top:2px;">$' + totalGeneralPagar.toFixed(2) + '</div>' +
       '</div>';
 
       for (var i = 0; i < lista.length; i++) {
@@ -1210,7 +1213,7 @@
             '<div class="det"><b>' + c.concepto + '</b><span style="font-size:0.7rem; color:var(--text-muted);">Vence: ' + (c.fecha || '-') + '</span>' +
             (c.foto_url ? '<button class="thumb-btn" style="margin-top:3px;" onclick="abrirVisor(\'' + c.foto_url + '\')">🧾 Ver Factura</button>' : '') +
             '</div>' +
-            '<div class="actions"><b style="color:#fff;">$' + Number(c.monto).toFixed(2) + '</b><button class="btn-del-mini" title="Anular obligación" onclick="borrarCargoPagar(\'' + c.id + '\')">✕</button></div>' +
+            '<div class="actions"><b style="color:#0f172a;">$' + Number(c.monto).toFixed(2) + '</b><button class="btn-del-mini" title="Anular obligación" onclick="borrarCargoPagar(\'' + c.id + '\')">✕</button></div>' +
           '</div>';
         }
 
@@ -1224,7 +1227,7 @@
           html += '<div class="ledger-item">' +
             '<div class="det">' +
               '<span>• ' + (a.fecha || hoyStr) + ' (' + (a.tipo || 'Pago') + ')</span>' +
-              (a.nota ? '<span style="font-size:0.7rem; color:#94a3b8;">💬 ' + a.nota + '</span>' : '') +
+              (a.nota ? '<span style="font-size:0.7rem; color:#475569;">💬 ' + a.nota + '</span>' : '') +
               (a.foto_url ? '<button class="thumb-btn" onclick="abrirVisor(\'' + a.foto_url + '\')">🧾 Ver Recibo</button>' : '') +
             '</div>' +
             '<div class="actions"><b style="color:var(--success);">-$' + Number(a.monto).toFixed(2) + '</b><button class="btn-del-mini" title="Anular pago" onclick="borrarAbonoPagar(\'' + a.id + '\')">✕</button></div>' +
