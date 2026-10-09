@@ -187,9 +187,10 @@
       </div>
     </header>
 
+    <!-- PANEL DE ALERTAS A 48-72 HORAS -->
     <div id="panel-alertas" class="alerts-card">
       <div class="alerts-header">
-        <span class="alerts-title">🔔 Vencimientos y Citas de Hoy</span>
+        <span class="alerts-title">🔔 Vencimientos y Citas (Próximas 72h)</span>
         <span id="contador-alertas" class="alerts-badge">0</span>
       </div>
       <div id="lista-alertas" class="alerts-list"></div>
@@ -219,7 +220,7 @@
         <div class="form-group"><label>Concepto / Caso Inicial</label><input type="text" id="cobro-concepto" placeholder="Ej. Juicio, Asesoría..."></div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
           <div class="form-group"><label>Monto Total ($)</label><input type="number" step="0.01" id="cobro-total" placeholder="100.00"></div>
-          <div class="form-group"><label>Fecha</label><input type="date" id="cobro-fecha"></div>
+          <div class="form-group"><label>Fecha de Vencimiento</label><input type="date" id="cobro-fecha"></div>
         </div>
         <button class="btn btn-primary" onclick="guardarVenta()">+ Abrir Cuenta</button>
       </div>
@@ -273,7 +274,7 @@
       <input type="hidden" id="modal-venta-id">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <div class="form-group"><label>Monto ($)</label><input type="number" step="0.01" id="abono-monto"></div>
-        <div class="form-group"><label>Fecha</label><input type="date" id="abono-fecha"></div>
+        <div class="form-group"><label>Fecha Abono</label><input type="date" id="abono-fecha"></div>
       </div>
       <div class="form-group"><label>Forma de Pago</label><input type="text" id="abono-tipo" placeholder="Ej. Efectivo, Transferencia"></div>
       <div class="form-group"><label>Notas (Opcional)</label><textarea id="abono-nota"></textarea></div>
@@ -291,10 +292,10 @@
       <h3 style="margin-bottom: 8px; color: #fff;">Sumar Deuda / Trámite</h3>
       <p id="modal-cargo-cliente" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;"></p>
       <input type="hidden" id="modal-cargo-id">
-      <div class="form-group"><label>Detalle</label><input type="text" id="cargo-concepto" placeholder="Ej. Honorarios extra..."></div>
+      <div class="form-group"><label>Detalle</label><input type="text" id="cargo-concepto" placeholder="Ej. Diligencia adicional..."></div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <div class="form-group"><label>Monto ($)</label><input type="number" step="0.01" id="cargo-monto"></div>
-        <div class="form-group"><label>Fecha</label><input type="date" id="cargo-fecha"></div>
+        <div class="form-group"><label>Fecha Vencimiento</label><input type="date" id="cargo-fecha"></div>
       </div>
       <div style="display: flex; gap: 8px; margin-top: 14px;">
         <button class="btn btn-primary" style="flex: 1;" onclick="confirmarCargo()">Sumar Deuda</button>
@@ -332,7 +333,7 @@
       <div class="form-group"><label>Concepto</label><input type="text" id="cargo-pagar-concepto" placeholder="Ej. Nueva factura..."></div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <div class="form-group"><label>Monto ($)</label><input type="number" step="0.01" id="cargo-pagar-monto"></div>
-        <div class="form-group"><label>Fecha Límite</label><input type="date" id="cargo-pagar-fecha"></div>
+        <div class="form-group"><label>Fecha Límite Vencimiento</label><input type="date" id="cargo-pagar-fecha"></div>
       </div>
       <div style="display: flex; gap: 8px; margin-top: 14px;">
         <button class="btn btn-primary" style="flex: 1;" onclick="confirmarCargoPagar()">Sumar Deuda</button>
@@ -341,7 +342,7 @@
     </div>
   </div>
 
-  <!-- VISOR DE FOTOS / COMPROBANTES -->
+  <!-- VISOR DE COMPROBANTES -->
   <div id="modal-visor" class="modal" onclick="cerrarModal('modal-visor')">
     <div class="modal-box" style="text-align: center; background: rgba(10,12,16,0.96);" onclick="event.stopPropagation()">
       <h4 style="margin-bottom: 10px; color: #fff;">Comprobante Adjunto</h4>
@@ -350,7 +351,7 @@
     </div>
   </div>
 
-  <!-- BARRA DE NAVEGACIÓN INFERIOR -->
+  <!-- NAVEGACIÓN INFERIOR -->
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="cambiarPestana('agenda', this)"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>Agenda</button>
     <button class="nav-btn" onclick="cambiarPestana('cobros', this)"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 1.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Cobros</button>
@@ -400,7 +401,7 @@
         localStorage.setItem('raiet_cobros', JSON.stringify(cacheCobros));
         localStorage.setItem('raiet_pagos', JSON.stringify(cachePagos));
       } catch (e) {
-        console.warn('Memoria local llena, se mantiene en memoria temporal:', e);
+        console.warn('Memoria local llena:', e);
       }
       actualizarPanelAlertas();
     }
@@ -464,34 +465,74 @@
       reader.readAsDataURL(file);
     }
 
+    /* MOTOR DE ALERTAS FILTRADO A 48 - 72 HORAS */
     function actualizarPanelAlertas() {
       var alertas = [];
+      var hoy = new Date();
+      var limite72h = new Date(hoy.getTime() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+      // 1. Citas del día o próximas 72h
       cacheAgenda.forEach(function(c) {
-        if (!c.completada && c.fecha_evento && c.fecha_evento.startsWith(hoyStr)) {
-          var hora = new Date(c.fecha_evento).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          alertas.push({ texto: '📅 Cita hoy (' + hora + '): <b>' + c.titulo + '</b>', color: '#38bdf8' });
+        if (!c.completada && c.fecha_evento) {
+          var fechaCita = c.fecha_evento.substring(0, 10);
+          if (fechaCita <= limite72h && fechaCita >= hoyStr) {
+            var hora = new Date(c.fecha_evento).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            var prefijo = (fechaCita === hoyStr) ? '📅 Cita hoy (' + hora + '): ' : '📅 Cita en 48-72h (' + fechaCita + ' ' + hora + '): ';
+            alertas.push({ texto: prefijo + '<b>' + c.titulo + '</b>', color: '#38bdf8' });
+          }
         }
       });
+
+      // 2. Cobros con saldo pendiente que vencen pronto (<= 72 horas o vencidos)
       cacheCobros.forEach(function(cli) {
         var cargos = cli.cobros_cargos || [];
         var abonos = cli.cobros_abonos || [];
         var deuda = cargos.reduce((s, c) => s + (Number(c.monto) || 0), 0);
         var pagado = abonos.reduce((s, a) => s + (Number(a.monto) || 0), 0);
         var saldo = Math.max(0, deuda - pagado);
+
         if (saldo > 0.01) {
-          alertas.push({ texto: '💵 Saldo cliente <b>' + cli.nombre + '</b>: $' + saldo.toFixed(2), color: '#ef4444' });
+          var cargoVencePronto = cargos.find(c => c.fecha && c.fecha <= limite72h);
+          if (cargoVencePronto) {
+            var tagVenc = '';
+            if (cargoVencePronto.fecha < hoyStr) {
+              tagVenc = '⚠️ <span style="color:#ef4444; font-weight:800;">Vencido (' + cargoVencePronto.fecha + '):</span> ';
+            } else if (cargoVencePronto.fecha === hoyStr) {
+              tagVenc = '💵 <span style="color:#fbbf24; font-weight:800;">Vence hoy:</span> ';
+            } else {
+              tagVenc = '⏳ <span style="color:#34d399; font-weight:700;">Vence en 48-72h (' + cargoVencePronto.fecha + '):</span> ';
+            }
+            alertas.push({
+              texto: tagVenc + 'Cobro a <b>' + cli.nombre + '</b> ($' + saldo.toFixed(2) + ')',
+              color: cargoVencePronto.fecha < hoyStr ? '#ef4444' : '#10b981'
+            });
+          }
         }
       });
+
+      // 3. Pagos con saldo pendiente que vencen pronto (<= 72 horas o vencidos)
       cachePagos.forEach(function(p) {
         var cargos = p.pagos_cargos || [];
         var abonos = p.pagos_abonos || [];
         var deuda = cargos.reduce((s, c) => s + (Number(c.monto) || 0), 0);
         var pagado = abonos.reduce((s, a) => s + (Number(a.monto) || 0), 0);
         var saldo = Math.max(0, deuda - pagado);
+
         if (saldo > 0.01) {
-          var venceHoy = cargos.some(c => c.fecha === hoyStr);
-          if (venceHoy) {
-            alertas.push({ texto: '⚠️ Vence hoy pago a <b>' + p.nombre + '</b>: $' + saldo.toFixed(2), color: '#f59e0b' });
+          var cargoVencePronto = cargos.find(c => c.fecha && c.fecha <= limite72h);
+          if (cargoVencePronto) {
+            var tagVenc = '';
+            if (cargoVencePronto.fecha < hoyStr) {
+              tagVenc = '⚠️ <span style="color:#ef4444; font-weight:800;">Pago atrasado (' + cargoVencePronto.fecha + '):</span> ';
+            } else if (cargoVencePronto.fecha === hoyStr) {
+              tagVenc = '⚠️ <span style="color:#f59e0b; font-weight:800;">Vence hoy:</span> ';
+            } else {
+              tagVenc = '⏳ <span style="color:#f59e0b; font-weight:700;">Vence en 48-72h (' + cargoVencePronto.fecha + '):</span> ';
+            }
+            alertas.push({
+              texto: tagVenc + 'Pago a <b>' + p.nombre + '</b> ($' + saldo.toFixed(2) + ')',
+              color: '#f59e0b'
+            });
           }
         }
       });
@@ -499,7 +540,12 @@
       var panel = document.getElementById('panel-alertas');
       var lista = document.getElementById('lista-alertas');
       var contador = document.getElementById('contador-alertas');
-      if (!alertas.length) { panel.style.display = 'none'; return; }
+
+      if (!alertas.length) {
+        panel.style.display = 'none';
+        return;
+      }
+
       panel.style.display = 'block';
       contador.innerText = alertas.length;
       lista.innerHTML = alertas.map(function(a) {
@@ -650,7 +696,7 @@
     }
 
     // ==========================================
-    // COBROS
+    // COBROS (CON TARJETA DE TOTAL POR COBRAR)
     // ==========================================
     async function cargarCobros() {
       dibujarCobros();
@@ -819,7 +865,18 @@
       var cont = document.getElementById('lista-cobros');
       if (!lista.length) { cont.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:20px;">No hay clientes registrados.</p>'; return; }
 
-      var html = '';
+      // CÁLCULO SUMATORIA TOTAL POR COBRAR
+      var totalGeneralCobrar = lista.reduce((acum, v) => {
+        var deuda = (v.cobros_cargos || []).reduce((s, c) => s + (Number(c.monto) || 0), 0);
+        var pagado = (v.cobros_abonos || []).reduce((s, a) => s + (Number(a.monto) || 0), 0);
+        return acum + Math.max(0, deuda - pagado);
+      }, 0);
+
+      var html = '<div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">' +
+        '<span style="font-size:0.75rem; color:var(--matte-steel); text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">TOTAL POR COBRAR:</span>' +
+        '<div style="font-size:1.35rem; font-weight:800; color:#34d399; margin-top:2px;">$' + totalGeneralCobrar.toFixed(2) + '</div>' +
+      '</div>';
+
       for (var i = 0; i < lista.length; i++) {
         var v = lista[i];
         var cargos = v.cobros_cargos || [];
@@ -853,7 +910,7 @@
         for (var cIdx = 0; cIdx < cargos.length; cIdx++) {
           var c = cargos[cIdx];
           html += '<div class="ledger-item">' +
-            '<div class="det"><b>' + c.concepto + '</b><span style="font-size:0.7rem; color:var(--text-muted);">' + c.fecha + '</span></div>' +
+            '<div class="det"><b>' + c.concepto + '</b><span style="font-size:0.7rem; color:var(--text-muted);">Vence: ' + c.fecha + '</span></div>' +
             '<div class="actions"><b style="color:#fff;">$' + Number(c.monto).toFixed(2) + '</b><button class="btn-del-mini" title="Anular cargo" onclick="borrarCargo(\'' + c.id + '\')">✕</button></div>' +
           '</div>';
         }
@@ -885,7 +942,7 @@
     }
 
     // ==========================================
-    // CUENTAS POR PAGAR
+    // CUENTAS POR PAGAR (CON TARJETA DE TOTAL POR PAGAR)
     // ==========================================
     async function cargarPagos() {
       dibujarPagos();
@@ -1052,7 +1109,18 @@
       var cont = document.getElementById('lista-pagos');
       if (!lista.length) { cont.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:20px;">No hay cuentas registradas.</p>'; return; }
 
-      var html = '';
+      // CÁLCULO SUMATORIA TOTAL POR PAGAR
+      var totalGeneralPagar = lista.reduce((acum, p) => {
+        var deuda = (p.pagos_cargos || []).reduce((s, c) => s + (Number(c.monto) || 0), 0);
+        var pagado = (p.pagos_abonos || []).reduce((s, a) => s + (Number(a.monto) || 0), 0);
+        return acum + Math.max(0, deuda - pagado);
+      }, 0);
+
+      var html = '<div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">' +
+        '<span style="font-size:0.75rem; color:var(--matte-steel); text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">TOTAL POR PAGAR:</span>' +
+        '<div style="font-size:1.35rem; font-weight:800; color:#f87171; margin-top:2px;">$' + totalGeneralPagar.toFixed(2) + '</div>' +
+      '</div>';
+
       for (var i = 0; i < lista.length; i++) {
         var p = lista[i];
         var cargos = p.pagos_cargos || [];
