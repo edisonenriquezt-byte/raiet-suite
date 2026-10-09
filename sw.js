@@ -1,4 +1,4 @@
-const CACHE_NAME = 'raiet-offline-v1';
+const CACHE_NAME = 'raiet-v3-full';
 const ASSETS = [
   './',
   './index.html',
@@ -23,7 +23,19 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
-  );
+  if (e.request.mode === 'navigate' || e.request.destination === 'document') {
+    e.respondWith(
+      fetch(e.request)
+        .then((res) => {
+          const copia = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, copia));
+          return res;
+        })
+        .catch(() => caches.match(e.request).then((res) => res || caches.match('./index.html')))
+    );
+  } else {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match(e.request))
+    );
+  }
 });
