@@ -1,4 +1,4 @@
-const CACHE_NAME = 'raiet-v3-full';
+const CACHE_NAME = 'raiet-v4-alertas';
 const ASSETS = [
   './',
   './index.html',
