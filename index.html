@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Raiet Suite</title>
   
-  <!-- Configuración PWA y Aplicación Móvil -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#090a0d">
   <meta name="mobile-web-app-capable" content="yes">
@@ -14,7 +13,6 @@
   <meta name="apple-mobile-web-app-title" content="Raiet Suite">
   <link rel="apple-touch-icon" href="logo.png">
 
-  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
@@ -333,6 +331,13 @@
   </nav>
 
   <script>
+    // Registro del Service Worker para PWA nativa
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(function(err) {
+        console.log('SW error:', err);
+      });
+    }
+
     const SUPABASE_URL = 'https://lhqyibxpstrterlckaax.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_-pnyO0CS974bqReuSkFP2g_6QHdYeTG';
     const db = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
@@ -762,8 +767,8 @@
     async function confirmarCargoPagar() {
       var id = document.getElementById('modal-cargo-pagar-id').value;
       var concepto = document.getElementById('cargo-pagar-concepto').value.trim();
-      var monto = parseFloat(document.getElementById('cargo-pagar-monto').value);
-      var fecha = document.getElementById('cargo-pagar-fecha').value;
+      var monto = parseFloat(document.getElementById('cargo-monto').value);
+      var fecha = document.getElementById('cargo-fecha').value;
       if (!concepto || isNaN(monto) || monto <= 0) return alert('Datos requeridos.');
 
       const { error } = await db.from('pagos_cargos').insert({ acreedor_id: id, concepto: concepto, monto: monto, fecha: fecha });
