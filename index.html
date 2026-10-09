@@ -2,9 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Raiet Suite - Cloud</title>
-  <!-- Cliente oficial de Supabase -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Raiet Suite</title>
+  
+  <!-- Configuración PWA y Aplicación Móvil -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#090a0d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Raiet Suite">
+  <link rel="apple-touch-icon" href="logo.png">
+
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
@@ -22,11 +32,24 @@
       --warning: #f59e0b;
       --matte-steel: #8b95a5;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 85px; -webkit-font-smoothing: antialiased; }
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body { 
+      background-color: var(--bg); 
+      color: var(--text); 
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: calc(85px + env(safe-area-inset-bottom)); 
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+    input, textarea, select { user-select: auto; }
     .container { max-width: 540px; margin: 0 auto; padding: 14px; }
 
-    /* Header Corporativo Raiet Suite */
     header.brand-header {
       padding: 12px 14px; margin-bottom: 14px;
       background: linear-gradient(180deg, #131720 0%, #0d1016 100%);
@@ -42,16 +65,10 @@
     .system-status { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--success); font-weight: 700; background: rgba(16, 185, 129, 0.12); padding: 4px 8px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.3); }
     .status-dot { width: 7px; height: 7px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); }
 
-    /* Banners de estado */
-    #banner-migracion {
-      background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(37, 99, 235, 0.35);
-      border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; display: none;
-      font-size: 0.8rem; align-items: center; justify-content: space-between; gap: 8px;
-    }
-
-    /* Barra inferior de navegación */
     nav.bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0; height: 65px;
+      position: fixed; bottom: 0; left: 0; right: 0; 
+      height: calc(65px + env(safe-area-inset-bottom));
+      padding-bottom: env(safe-area-inset-bottom);
       background: #080a0e; border-top: 1px solid var(--card-border);
       display: flex; justify-content: space-around; align-items: center; z-index: 100;
     }
@@ -67,7 +84,6 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* Tarjetas y Formularios */
     .card {
       background: var(--card); border: 1px solid var(--card-border);
       border-radius: 12px; padding: 16px; margin-bottom: 16px;
@@ -146,10 +162,9 @@
 <body>
 
   <div class="container">
-    <!-- Header Raiet Suite -->
     <header class="brand-header">
       <div class="brand-left">
-        <img src="logo.png" alt="Raiet Suite" class="brand-logo-img" onerror="this.style.display='none';">
+        <img src="logo.png" alt="Raiet Suite" class="brand-logo-img" onerror="this.src='logo.png.png';">
         <div class="brand-title-box">
           <span class="brand-name">RAIET SUITE</span>
           <span class="brand-tag" id="view-desc">Panel en la Nube</span>
@@ -161,20 +176,14 @@
       </div>
     </header>
 
-    <!-- Banner para migrar datos de prueba locales -->
-    <div id="banner-migracion">
-      <span>📦 Subir datos de prueba a Supabase</span>
-      <button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem; width: auto;" onclick="migrarDatosLocalesASupabase()">☁️ Subir a Nube</button>
-    </div>
-
-    <!-- PESTAÑA 1: AGENDA -->
+    <!-- AGENDA -->
     <section id="tab-agenda" class="tab-content active">
       <div class="card">
         <div class="form-group"><label>Cita / Compromiso</label><input type="text" id="agenda-titulo" placeholder="Ej. Odontólogo, Audiencia, Banco..."></div>
         <div class="form-group"><label>Detalles / Observaciones (Opcional)</label><textarea id="agenda-detalle" placeholder="Ej. Llevar documentos, confirmar hora..."></textarea></div>
         <div class="form-group"><label>Fecha y Hora del Evento</label><input type="datetime-local" id="agenda-fecha"></div>
         <div class="form-group"><label>Foto / Documento (Opcional)</label><input type="file" id="agenda-foto" accept="image/*"></div>
-        <button class="btn btn-primary" onclick="guardarAgenda()">+ Anotar en Agenda Nube</button>
+        <button class="btn btn-primary" onclick="guardarAgenda()">+ Anotar en Agenda</button>
       </div>
       <div class="search-filter-box">
         <input type="text" id="buscar-agenda" placeholder="🔍 Buscar en la agenda..." oninput="renderAgenda()">
@@ -183,7 +192,7 @@
       <div id="lista-agenda"></div>
     </section>
 
-    <!-- PESTAÑA 2: CLIENTES Y COBROS -->
+    <!-- CLIENTES Y COBROS -->
     <section id="tab-cobros" class="tab-content">
       <div class="card">
         <div class="form-group"><label>Nombre del Cliente</label><input type="text" id="cobro-cliente" placeholder="Nombre completo"></div>
@@ -202,7 +211,7 @@
       <div id="lista-cobros"></div>
     </section>
 
-    <!-- PESTAÑA 3: CUENTAS POR PAGAR -->
+    <!-- CUENTAS POR PAGAR -->
     <section id="tab-pagos" class="tab-content">
       <div class="card">
         <div class="form-group"><label>Acreedor / Servicio / Proveedor</label><input type="text" id="pago-concepto" placeholder="Ej. Banco, Luz, Internet"></div>
@@ -221,7 +230,7 @@
     </section>
   </div>
 
-  <!-- MODAL EDITAR AGENDA -->
+  <!-- MODALES -->
   <div id="modal-editar-agenda" class="modal">
     <div class="modal-box">
       <h3 style="margin-bottom: 8px; color: #fff;">Editar Cita</h3>
@@ -237,7 +246,6 @@
     </div>
   </div>
 
-  <!-- MODAL REGISTRAR ABONO (COBROS) -->
   <div id="modal-abono" class="modal">
     <div class="modal-box">
       <h3 style="margin-bottom: 8px; color: #fff;">Registrar Abono Recibido</h3>
@@ -257,7 +265,6 @@
     </div>
   </div>
 
-  <!-- MODAL SUMAR DEUDA (COBROS) -->
   <div id="modal-cargo" class="modal">
     <div class="modal-box">
       <h3 style="margin-bottom: 8px; color: #fff;">Sumar Deuda / Fiado</h3>
@@ -275,7 +282,6 @@
     </div>
   </div>
 
-  <!-- MODAL REGISTRAR PAGO SALIENTE -->
   <div id="modal-pago-cuota" class="modal">
     <div class="modal-box">
       <h3 style="margin-bottom: 8px; color: #fff;">Registrar Pago Saliente</h3>
@@ -295,7 +301,6 @@
     </div>
   </div>
 
-  <!-- MODAL SUMAR DEUDA (PAGOS) -->
   <div id="modal-cargo-pagar" class="modal">
     <div class="modal-box">
       <h3 style="margin-bottom: 8px; color: #fff;">Sumar Deuda / Factura</h3>
@@ -313,7 +318,6 @@
     </div>
   </div>
 
-  <!-- VISOR DE FOTOS -->
   <div id="modal-visor" class="modal" onclick="cerrarModal('modal-visor')">
     <div class="modal-box" style="text-align: center; background: rgba(10,12,16,0.96);" onclick="event.stopPropagation()">
       <h4 style="margin-bottom: 10px; color: #fff;">Comprobante Adjunto</h4>
@@ -322,7 +326,6 @@
     </div>
   </div>
 
-  <!-- BARRA INFERIOR -->
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="cambiarPestana('agenda', this)"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>Agenda</button>
     <button class="nav-btn" onclick="cambiarPestana('cobros', this)"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 1.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Cobros</button>
@@ -330,7 +333,6 @@
   </nav>
 
   <script>
-    // Conexión Supabase
     const SUPABASE_URL = 'https://lhqyibxpstrterlckaax.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_-pnyO0CS974bqReuSkFP2g_6QHdYeTG';
     const db = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
@@ -404,7 +406,6 @@
       reader.readAsDataURL(file);
     }
 
-    // --- AGENDA ---
     async function cargarAgenda() {
       if (!db) return;
       const { data, error } = await db.from('agenda').select('*').order('fecha_evento', { ascending: true });
@@ -512,7 +513,6 @@
       cont.innerHTML = html;
     }
 
-    // --- COBROS ---
     async function cargarCobros() {
       if (!db) return;
       const { data, error } = await db.from('clientes').select('*, cobros_cargos(*), cobros_abonos(*)').order('creado_el', { ascending: false });
@@ -718,7 +718,6 @@
       cont.innerHTML = html;
     }
 
-    // --- PAGOS ---
     async function cargarPagos() {
       if (!db) return;
       const { data, error } = await db.from('acreedores').select('*, pagos_cargos(*), pagos_abonos(*)').order('creado_el', { ascending: false });
@@ -932,69 +931,6 @@
       cont.innerHTML = html;
     }
 
-    // --- MIGRACIÓN DE DATOS PREVIOS ---
-    function chequearDatosLocales() {
-      try {
-        var v = JSON.parse(localStorage.getItem('ventas_data') || '[]');
-        var p = JSON.parse(localStorage.getItem('pagos_data') || '[]');
-        var a = JSON.parse(localStorage.getItem('agenda_data') || '[]');
-        if (v.length > 0 || p.length > 0 || a.length > 0) {
-          document.getElementById('banner-migracion').style.display = 'flex';
-        }
-      } catch(e) {}
-    }
-
-    async function migrarDatosLocalesASupabase() {
-      if (!db) return;
-      if (!confirm('¿Deseas subir todos tus registros locales anteriores a Supabase?')) return;
-      try {
-        var agendaLocal = JSON.parse(localStorage.getItem('agenda_data') || '[]');
-        for (var ag of agendaLocal) {
-          await db.from('agenda').insert({
-            titulo: ag.titulo,
-            detalle: ag.detalle || '',
-            fecha_evento: new Date(ag.fechaEvento || ag.fecha_evento || Date.now()).toISOString(),
-            completada: ag.completada || false,
-            foto_url: ag.foto || ag.foto_url || null
-          });
-        }
-        var ventasLocal = JSON.parse(localStorage.getItem('ventas_data') || '[]');
-        for (var cl of ventasLocal) {
-          const { data: nCl } = await db.from('clientes').insert({ nombre: cl.cliente || cl.nombre || 'Cliente', telefono: cl.telefono || '' }).select().single();
-          if (nCl) {
-            for (var cg of (cl.cargos || [])) {
-              await db.from('cobros_cargos').insert({ cliente_id: nCl.id, concepto: cg.concepto, monto: cg.monto, fecha: cg.fecha || hoyStr });
-            }
-            for (var ab of (cl.abonos || [])) {
-              await db.from('cobros_abonos').insert({ cliente_id: nCl.id, monto: ab.monto, fecha: ab.fecha || hoyStr, tipo: ab.tipo || 'Abono', nota: ab.nota || '', foto_url: ab.foto || ab.foto_url || null });
-            }
-          }
-        }
-        var pagosLocal = JSON.parse(localStorage.getItem('pagos_data') || '[]');
-        for (var pg of pagosLocal) {
-          const { data: nPg } = await db.from('acreedores').insert({ nombre: pg.acreedor || pg.nombre || pg.concepto || 'Acreedor', detalle: pg.detalle || '' }).select().single();
-          if (nPg) {
-            for (var cg of (pg.cargos || [])) {
-              await db.from('pagos_cargos').insert({ acreedor_id: nPg.id, concepto: cg.concepto, monto: cg.monto, fecha: cg.fecha || hoyStr });
-            }
-            for (var ab of (pg.abonos || [])) {
-              await db.from('pagos_abonos').insert({ acreedor_id: nPg.id, monto: ab.monto, fecha: ab.fecha || hoyStr, tipo: ab.tipo || 'Pago', nota: ab.nota || '', foto_url: ab.foto || ab.foto_url || null });
-            }
-          }
-        }
-
-        localStorage.removeItem('ventas_data');
-        localStorage.removeItem('pagos_data');
-        localStorage.removeItem('agenda_data');
-        document.getElementById('banner-migracion').style.display = 'none';
-        alert('¡Datos sincronizados con éxito!');
-        cargarAgenda(); cargarCobros(); cargarPagos();
-      } catch (err) {
-        alert('Error durante la migración: ' + err.message);
-      }
-    }
-
-    chequearDatosLocales();
     cargarAgenda();
     cargarCobros();
     cargarPagos();
